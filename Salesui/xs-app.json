@@ -1,0 +1,23 @@
+{
+  "welcomeFile": "/Salesui/index.html",
+  "authenticationMethod": "route",
+  "logout": {
+    "logoutEndpoint": "/do/logout"
+  },
+  "routes": [
+    {
+		"source": "^/js/(.*)$",
+		"authenticationType": "xsuaa",
+		"destination": "salesjs_be"
+	},{
+		"source": "/odata/v4/CatalogService/(.*)",
+		"destination": "salesjs_be",
+		"csrfProtection": false,
+		"authenticationType": "xsuaa" 
+	},{
+      "source": "^/Salesui/(.*)$",
+      "target": "$1",
+      "localDir": "webapp"
+    }
+  ]
+}

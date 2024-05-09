@@ -1,0 +1,4 @@
+using {eztracker.DB as mySalesapp } from '../db/data-model';
+
+service CatalogService {
+}

@@ -1,0 +1,34 @@
+{
+    "name": "SalesApp-srv",
+    "description": "Generated from ../package.json, do not change!",
+    "version": "1.0.0",
+    "dependencies": {
+        "@sap/cds": "^3.34.1",
+        "express": "^4.17.1",
+        "@sap/hana-client": "^2.4.196",
+		"passport": "^0.3.2",
+		"@sap/xsenv": "latest",
+		"@sap/xssec": "latest",
+		"@sap/hdbext": "latest",
+		"hdb": "0.17.0",
+		"cfenv": "latest"
+    },
+    "engines": {
+        "node": "^10 || ^12"
+    },
+    "devDependencies": {},
+    "scripts": {
+        "postinstall": "npm dedupe && node .build.js",
+        "start": "node server.js", 
+        "watch": "nodemon -w . -i node_modules/**,.git/** -e cds -x npm run build"
+    },
+    "private": true,
+    "cds": {
+        "requires": {
+            "db": {
+                "kind": "hana",
+                "model": "gen/csn.json"
+            }
+        }
+    }
+}

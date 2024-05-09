@@ -1,0 +1,55 @@
+ID: SalesApp
+_schema-version: '2.1'
+version: 0.0.1
+modules:
+  - name: SalesApp-db
+    type: hdb
+    path: db
+    parameters:
+      memory: 256M
+      disk-quota: 512M
+    requires:
+      - name: SalesApp-db-hdi-container
+  - name: SalesApp-srv
+    type: nodejs
+    path: srv
+    parameters:
+      memory: 512M
+      disk-quota: 512M
+    provides:
+      - name: srv_api
+        properties:
+          url: '${default-url}'
+    requires:
+      - name: SalesApp-db-hdi-container
+  - name: Salesui
+    type: html5
+    path: Salesui
+    parameters:
+      disk-quota: 512M
+      memory: 256M
+    build-parameters:
+      builder: grunt
+    requires:
+      - name: srv_api
+        group: destinations
+        properties:
+          name: salesjs_be
+          url: '~{url}'
+          forwardAuthToken: true
+      - name: uaa_SalesApp
+resources:
+  - name: SalesApp-db-hdi-container
+    type: com.sap.xs.hdi-container
+    properties:
+      hdi-container-name: '${service-name}'
+    parameters:
+      config:
+        schema: CAPSAMPLE
+        database_id: b0be64a8-4076-49ae-9363-cad8dbf9b8b4
+  - name: uaa_SalesApp
+    parameters:
+      path: ./xs-security.json
+      service-plan: application
+      service: xsuaa
+    type: org.cloudfoundry.managed-service

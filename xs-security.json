@@ -1,0 +1,22 @@
+{
+  "xsappname": "SalesApp",
+  "tenant-mode": "dedicated",
+  "description": "Security profile of called application",
+  	"scopes": [{
+		"name": "$XSAPPNAME.USER",
+		"description": "Sales App User"
+	}],
+  "role-templates": [
+  	{
+		"name": "SalesApp_User",
+		"scope-references": ["$XSAPPNAME.USER"]
+	},
+    {
+      "name": "Token_Exchange",
+      "description": "UAA",
+      "scope-references": [
+        "uaa.user"
+      ]
+    }
+  ]
+}
